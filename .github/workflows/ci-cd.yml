@@ -1,10 +1,11 @@
- name: CI/CD
+name: CI/CD
+
 on:
   push:
     branches:
-      - main 
+      - main
   workflow_dispatch:
-
+  
   jobs:
   test-build-deploy:
   permissions: 
