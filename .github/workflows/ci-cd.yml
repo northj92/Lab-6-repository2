@@ -7,8 +7,8 @@ on:
 workflow_dispatch:
 
 jobs:
-   test-build-deploy:
-   permissions: 
+  test-build-deploy:
+  permissions: 
      pages: write 
      id-token: write 
    environment: 
