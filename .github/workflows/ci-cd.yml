@@ -1,0 +1,41 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main 
+workflow_dispatch:
+
+jobs:
+   test-build-deploy:
+   permissions: 
+     pages: write 
+     id-token: write 
+   environment: 
+     name: github-pages
+     url: ${{ steps.deployment.outputs.page_url }}
+   runs-on: ubuntu-latest
+
+   steps:
+     - name: Checkout
+       uses: actions/checkout@v3
+
+     - name: Set up node
+       uses: actions/setup-node@v3
+       with:
+          node-verions: "20.05.0"
+    - run: npm ci
+    - run: npm test
+    - run: npm build
+
+    - name: Set up Pages
+      uses: actions/congigure-pages@v3
+
+    - name: Upload artifact
+      uses: actions/uploade-pages-artifact@v2
+      with:
+         path: './dist'
+
+    - name: Deploy to Github Pages
+      id: deployment
+      uses: actions/deploy-pages@v2
